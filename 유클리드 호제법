@@ -1,0 +1,67 @@
+유클리드 호제법의 정의는 다음과 같다.
+두 양의 정수 a,b에 대해 a=bq+r이면 a,b의 GCD는 b,r의 GCD와 같다. (단. r은 0보다 크거나 같고 a보다 작거나 같다)
+
+1. 두 수를 m,n이라 하자
+2. m을 n을 나눈 나머지를 계산한다.
+3. 나머지가 0이라면, n 값이 맨 처음 두 수의 최대공약수다.
+4. 나머지가 0이 아니라면, m%n과 n 중 큰 것을 m, 작은 것을 n이라고 한다.
+위 과정을 반복한다.
+
+
+#include <stdio.h>
+int main(){
+    int n,m,extra;                    // 두 수 m,n 두 수의 나머지 extra 변수 설정
+    scanf("%d %d", &m,&n);
+    
+    while(1){
+        if(m==n)
+            printf("%d\n", n);
+        extra=m%n;
+        
+        if(extra==0){
+            printf("%d\n", n);
+            break;
+        }
+        
+        if(extra!=0){
+            if(extra>n)
+                m=extra;
+            else{
+                m=n;
+                n=extra;
+            }
+        }
+    }
+}
+
+유클리드 호제법을 함수로 구현하면, 아래와 같다.
+
+#include <stdio.h>
+int GCD();
+int main(){
+    int m,n,gcd;
+    scanf("%d %d", &m, &n);
+    gcd = GCD(m,n);
+    printf("%d", gcd);
+}
+
+int GCD(int a, int b){
+    int extra;
+    while(1){
+        if(a==b)
+            return b;
+        extra=a%b;
+        
+        if(extra==0)
+            return b;
+        
+        if(extra!=0){
+            if(extra>b)
+                a=extra;
+            else{
+                a=b;
+                b=extra;
+            }
+        }
+    }
+}
